@@ -1,0 +1,9 @@
+keys:
+  - &admin age1s4jlzxlpvdzrrp36fe7xjy0wnpl7rk468ay7ymjefwxrcy9q0q0q3nvdwy
+  - &rpi age1na48zvpl6gzdvhtt79pr4t2upn2u34l7znsr68s29340g2t6ug4qquarpq
+creation_rules:
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - age:
+          - *admin
+          - *rpi

@@ -1,0 +1,135 @@
+// Custom fastfetch preset — Raspberry Pi 3B (Dual-tone Red/Yellow Nix logo)
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+    "logo": {
+        "padding": {
+            "top": 1,
+            "right": 2
+        },
+        "color": {
+            "1": "red",
+            "2": "yellow",
+            "3": "red",
+            "4": "yellow",
+            "5": "red",
+            "6": "yellow",
+            "7": "red",
+            "8": "yellow",
+            "9": "red"
+        }
+    },
+
+    "display": {
+        "separator": "  ",
+        "color": {
+            "separator": "red"
+        },
+        "constants": [
+            "────────────────────────────────────────────────────────────────────────────────────────────",
+            "│\u001b[92C│\u001b[92D"
+        ],
+        "bar": {
+            "border": {
+                "left":         "\uee00",
+                "leftElapsed":  "\uee03",
+                "right":        "\uee02",
+                "rightElapsed": "\uee05"
+            },
+            "char": {
+                "total":   "\uee01",
+                "elapsed": "\uee04"
+            },
+            "width": 18,
+            "color": {
+                "total": null
+            }
+        },
+        "percent": {
+            "type": 3
+        },
+        "key": {
+            "width": 14
+        }
+    },
+
+    "modules": [
+        {
+            "format": "{#1}{#keys}╭{$1}╮\u001b[93D  {user-name-colored}{at-symbol-colored}{host-name-colored}",
+            "type": "title"
+        },
+        {
+            "key":  "{$2}{#31}{icon} os      ",
+            "type": "os"
+        },
+        {
+            "key":  "{$2}{#31}󰒔 kernel  ",
+            "type": "kernel"
+        },
+        {
+            "key":  "{$2}{#31}󰅐 uptime  ",
+            "type": "uptime"
+        },
+
+        // ├─── Séparateur ──────────────────────────────────────────────────────┤
+        {
+            "format": "{#1}{#keys}├{$1}┤",
+            "type": "custom"
+        },
+
+        // ── HARDWARE
+        {
+            "key":  "{$2}{#32}󰌢 host    ",
+            "type": "host"
+        },
+        {
+            "key":             "{$2}{#32}󰻠 cpu     ",
+            "type":            "cpu",
+            "temp":            true,
+            "showPeCoreCount": true
+        },
+
+        // ├─── Séparateur ──────────────────────────────────────────────────────┤
+        {
+            "format": "{#1}{#keys}├{$1}┤",
+            "type": "custom"
+        },
+
+        // ── RESSOURCES
+        {
+            "type": "memory",
+            "key":  "{$2}{#35}󰑭 ram     "
+        },
+        {
+            "type":    "disk",
+            "folders": "/",
+            "key":     "{$2}{#35}󰋊 disk    "
+        },
+
+        // ├─── Séparateur ──────────────────────────────────────────────────────┤
+        {
+            "format": "{#1}{#keys}├{$1}┤",
+            "type": "custom"
+        },
+
+        // ── RÉSEAU
+        {
+            "type": "command",
+            "key":  "{$2}{#34}󰈀 lan     ",
+            "text": "ip route get 1.1.1.1 2>/dev/null | awk '{print $7}' || echo 'down'"
+        },
+
+        // ── SERVICES NATIFS
+        {
+            "type": "command",
+            "key":  "{$2}{#36}󰡨 svcs    ",
+            "text": "for s in fcksws notifynotes nginx fail2ban; do if systemctl is-active --quiet $s 2>/dev/null; then printf '\\033[0;32m\\ue0b6\\033[30;42m %s \\033[0;32m\\ue0b4\\033[0m ' \"$s\"; fi; done"
+        },
+
+        // ╰─── Fermeture ───────────────────────────────────────────────────────╯
+        {
+            "format": "{#1}{#keys}╰{$1}╯",
+            "type": "custom"
+        }
+    ]
+}
