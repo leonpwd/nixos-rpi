@@ -41,6 +41,7 @@
       rpi = { name, nodes, ... }: {
         deployment = {
           targetHost    = "rpi";
+          targetUser    = "leon";
           buildOnTarget = true;
         };
 

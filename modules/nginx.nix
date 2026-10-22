@@ -50,7 +50,7 @@
           --http --http.webroot /var/lib/acme/acme-challenge \
           --domains "$DOMAIN" \
           --domains "$DOMAIN_ALIAS" \
-          --days 30 renew || true
+          renew --days 30
 
         # Install certs into the live directory
         if [ -f "/var/lib/acme/certificates/$DOMAIN.crt" ]; then

@@ -159,8 +159,8 @@
     settings = {
       PasswordAuthentication       = false;
       KbdInteractiveAuthentication = false;
-      PermitRootLogin              = "prohibit-password";
-      AllowUsers                   = [ "leon" "root" ];
+      PermitRootLogin              = "no";
+      AllowUsers                   = [ "leon" ];
       MaxAuthTries                 = 3;
       LoginGraceTime               = 20;
       ClientAliveInterval          = 300;
@@ -253,11 +253,9 @@
     max-jobs = 1;
     substituters = [
       "https://cache.nixos.org"
-      "https://sops.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "sops.cachix.org-1:mQPlno+n38fHlZt21N6aPQuL/lP29L5qY27r04qA9Yc="
     ];
   };
 

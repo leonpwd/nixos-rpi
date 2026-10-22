@@ -50,6 +50,12 @@
 
           add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
 
+          # Block access to hidden files and directories (.env, .git, etc.)
+          location ~ /\. {
+            deny all;
+            return 404;
+          }
+
           location / {
             proxy_pass http://127.0.0.1:3000;
             proxy_http_version 1.1;
