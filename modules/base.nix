@@ -171,7 +171,7 @@
     };
   };
 
-  # ── Shell — Zsh + Powerlevel10k + Fastfetch (Parité media) ─────────────────────
+  # ── Shell — Zsh + Starship + Fastfetch (Parité media) ──────────────────────────
 
   environment.shells = [ pkgs.zsh ];
 
@@ -187,28 +187,41 @@
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
 
-    shellInit = ''
-      if [[ "$TERM" == "xterm-ghostty" ]]; then export TERM=xterm-256color; fi
-    '';
-
-    promptInit = ''
-      typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-    '';
+    histSize = 50000;
+    histFile = "$HOME/.zsh_history";
+    setOptions = [
+      "EXTENDED_HISTORY"
+      "HIST_EXPIRE_DUPS_FIRST"
+      "HIST_IGNORE_DUPS"
+      "HIST_IGNORE_ALL_DUPS"
+      "HIST_IGNORE_SPACE"
+      "HIST_FIND_NO_DUPS"
+      "HIST_SAVE_NO_DUPS"
+      "HIST_FCNTL_LOCK"
+      "SHARE_HISTORY"
+    ];
 
     interactiveShellInit = ''
-      [[ ! -f /etc/p10k.zsh ]] || source /etc/p10k.zsh
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
       source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
       bindkey '^[[A' history-substring-search-up
       bindkey '^[[B' history-substring-search-down
-      alias ls='ls --color=auto'
-      alias ll='ls -alF --color=auto'
-      alias la='ls -A --color=auto'
+      alias ls='eza --icons=auto --group-directories-first'
+      alias ll='eza -alF --icons=auto --git --group-directories-first'
+      alias la='eza -a --icons=auto --group-directories-first'
+      alias lt='eza --tree --level=2 --icons=auto'
       fastfetch --config /etc/fastfetch/config.jsonc
     '';
   };
 
-  environment.etc."p10k.zsh".source               = ./etc/p10k;
+  programs.starship.enable = true;
+  environment.etc."starship.toml".source          = ./etc/starship.toml;
+  environment.variables.STARSHIP_CONFIG           = "/etc/starship.toml";
+
+  programs.zoxide.enable = true;
+  programs.fzf.keybindings = true;
+
   environment.etc."fastfetch/config.jsonc".source = ./etc/fastfetch.jsonc;
 
   system.activationScripts.serverJustfile = lib.stringAfter [ "users" ] ''
@@ -277,6 +290,8 @@
     bind.dnsutils
     lsof
     curl
+    eza
+    bat
   ];
 
   system.stateVersion = "26.05";

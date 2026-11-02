@@ -34,23 +34,31 @@
     path = [ pkgs.lego pkgs.coreutils pkgs.systemd ];
     serviceConfig = {
       Type = "oneshot";
+      # lego waits out Let's Encrypt rate limits (429); without a timeout the start job would hang
+      # forever and block switch-to-configuration (and its lock) during a deployment.
+      TimeoutStartSec = "10min";
       EnvironmentFile = config.sops.templates."acme.env".path;
       ExecStart = pkgs.writeShellScript "lego-run" ''
         set -euo pipefail
         mkdir -p /var/lib/acme/acme-challenge /var/lib/acme/live
 
-        # Request or renew certificate using HTTP-01 challenge against Nginx webroot
-        lego --path /var/lib/acme \
-          --email "$ACME_EMAIL" \
-          --http --http.webroot /var/lib/acme/acme-challenge \
-          --domains "$DOMAIN" \
-          --domains "$DOMAIN_ALIAS" \
-          --accept-tos run || lego --path /var/lib/acme \
-          --email "$ACME_EMAIL" \
-          --http --http.webroot /var/lib/acme/acme-challenge \
-          --domains "$DOMAIN" \
-          --domains "$DOMAIN_ALIAS" \
-          renew --days 30
+        # Obtain the certificate once, then only renew it: `run` always orders a new certificate,
+        # which exhausts Let's Encrypt's limit (5 per identical set of names per week).
+        if [ -f "/var/lib/acme/certificates/$DOMAIN.crt" ]; then
+          lego --path /var/lib/acme \
+            --email "$ACME_EMAIL" \
+            --http --http.webroot /var/lib/acme/acme-challenge \
+            --domains "$DOMAIN" \
+            --domains "$DOMAIN_ALIAS" \
+            renew --days 30
+        else
+          lego --path /var/lib/acme \
+            --email "$ACME_EMAIL" \
+            --http --http.webroot /var/lib/acme/acme-challenge \
+            --domains "$DOMAIN" \
+            --domains "$DOMAIN_ALIAS" \
+            --accept-tos run
+        fi
 
         # Install certs into the live directory
         if [ -f "/var/lib/acme/certificates/$DOMAIN.crt" ]; then
