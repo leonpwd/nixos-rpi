@@ -1,7 +1,9 @@
-{ config, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   sops = {
+    # Pinned build (see flake.nix): independent from the main nixpkgs, never recompiled by updates.
+    package = inputs.sops-nix.packages.${pkgs.stdenv.hostPlatform.system}.sops-install-secrets;
     defaultSopsFile   = ../secrets/rpi.yaml;
     defaultSopsFormat = "yaml";
     age.sshKeyPaths   = [ "/etc/ssh/ssh_host_ed25519_key" ];
