@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792534527,
-        "narHash": "sha256-QW9erm9dSSWgcUVQEZkoHLQBhzuTqPpJVQ8rurp+HGk=",
+        "lastModified": 1793619855,
+        "narHash": "sha256-WowqixGK4Ea9qJdTLUnTQAvZQYpnABZsAJrtpycAmYA=",
         "owner": "leonpwd",
         "repo": "fcksws",
-        "rev": "97caf0c8df4646e4690a77e1506e1dbb38682d55",
+        "rev": "a0572341f74d10612a94c7f06bed6abdb84e6ef9",
         "type": "github"
       },
       "original": {
