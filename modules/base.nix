@@ -129,8 +129,6 @@
     hashedPassword = "!";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJKe2HveHRaZq27KLAgI8aa9rOI37xxFBfNOjgYI4Ph/ leon@rpi"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICe9/bK3E3xGB2AyMAZ8cpzi8AAWzFmeAUEPbSasCmDb root@nixos"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILw0xxAKSAbc5PMZncFMBUF7aNxqJAXRaClQgtLq+KOG lego@server"
     ];
   };
 
@@ -138,7 +136,6 @@
     hashedPassword = "!";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJKe2HveHRaZq27KLAgI8aa9rOI37xxFBfNOjgYI4Ph/ leon@rpi"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICe9/bK3E3xGB2AyMAZ8cpzi8AAWzFmeAUEPbSasCmDb root@nixos"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILw0xxAKSAbc5PMZncFMBUF7aNxqJAXRaClQgtLq+KOG lego@server"
     ];
   };
