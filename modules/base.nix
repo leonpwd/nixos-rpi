@@ -157,15 +157,22 @@
   services.openssh = {
     enable = true;
     settings = {
+      AllowUsers                   = [ "leon" ];
+      AuthenticationMethods        = "publickey";
       PasswordAuthentication       = false;
       KbdInteractiveAuthentication = false;
+      PermitEmptyPasswords         = false;
       PermitRootLogin              = "no";
-      AllowUsers                   = [ "leon" ];
       MaxAuthTries                 = 3;
       LoginGraceTime               = 20;
+      MaxSessions                  = 5;
       ClientAliveInterval          = 300;
       ClientAliveCountMax          = 2;
       X11Forwarding                = false;
+      AllowAgentForwarding         = false;
+      AllowTcpForwarding           = false;
+      PermitTunnel                 = "no";
+      LogLevel                     = "VERBOSE";
       PrintMotd                    = false;
       PrintLastLog                 = false;
     };
