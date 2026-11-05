@@ -128,15 +128,14 @@
     shell        = pkgs.zsh;
     hashedPassword = "!";
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJKe2HveHRaZq27KLAgI8aa9rOI37xxFBfNOjgYI4Ph/ leon@rpi"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKTaIJwfMzeyqnMvwonVwqX77OXzqUrlumj8Fl0AOfCX git.staleness589@passmail.com"
     ];
   };
 
   users.users.root = {
     hashedPassword = "!";
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJKe2HveHRaZq27KLAgI8aa9rOI37xxFBfNOjgYI4Ph/ leon@rpi"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILw0xxAKSAbc5PMZncFMBUF7aNxqJAXRaClQgtLq+KOG lego@server"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKTaIJwfMzeyqnMvwonVwqX77OXzqUrlumj8Fl0AOfCX git.staleness589@passmail.com"
     ];
   };
 
